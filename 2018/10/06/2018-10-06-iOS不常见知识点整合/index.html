@@ -6,17 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://xiao-huang.github.io">
-  <title>Tag: web | Martin&#39;s Blog</title>
+  <title>WebView部分不常见的知识整理 | Martin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="【你回眸的一瞬 — 我颔首的一生】">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Martin's Blog">
-<meta property="og:url" content="https://xiao-huang.github.io/tags/web/index.html">
+  <meta name="description" content="ios上webView获取UserAgent在某种情况下，原生与H5交互处理的时候，需要获取原生的设备等信息，这个时候需要用userAgent了：
+///查看相对应的webView的userAgent
+UIWebView方式
+NSString *userAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@&amp;quot;na">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebView部分不常见的知识整理">
+<meta property="og:url" content="https://xiao-huang.github.io/2018/10/06/2018-10-06-iOS不常见知识点整合/index.html">
 <meta property="og:site_name" content="Martin's Blog">
-<meta property="og:description" content="【你回眸的一瞬 — 我颔首的一生】">
+<meta property="og:description" content="ios上webView获取UserAgent在某种情况下，原生与H5交互处理的时候，需要获取原生的设备等信息，这个时候需要用userAgent了：
+///查看相对应的webView的userAgent
+UIWebView方式
+NSString *userAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@&amp;quot;na">
+<meta property="og:updated_time" content="2018-10-06T06:43:18.415Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Martin's Blog">
-<meta name="twitter:description" content="【你回眸的一瞬 — 我颔首的一生】">
+<meta name="twitter:title" content="WebView部分不常见的知识整理">
+<meta name="twitter:description" content="ios上webView获取UserAgent在某种情况下，原生与H5交互处理的时候，需要获取原生的设备等信息，这个时候需要用userAgent了：
+///查看相对应的webView的userAgent
+UIWebView方式
+NSString *userAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@&amp;quot;na">
   
     <link rel="alternative" href="/atom.xml" title="Martin&#39;s Blog" type="application/atom+xml">
   
@@ -146,36 +156,119 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-2018-10-06-iOS不常见知识点整合" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/04/2018-10-06-iOS中webView的一些知识/" class="archive-article-date">
-  	<time datetime="2017-10-04T10:18:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/04/2018-10-06-iOS中webView的一些知识/">关于webView的一些知识</a>
+    <h1 class="article-title" itemprop="name">
+      WebView部分不常见的知识整理
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/10/06/2018-10-06-iOS不常见知识点整合/" class="archive-article-date">
+  	<time datetime="2018-10-06T06:38:11.576Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="ios上webView获取UserAgent"><a href="#ios上webView获取UserAgent" class="headerlink" title="ios上webView获取UserAgent"></a>ios上webView获取UserAgent</h3><p>在某种情况下，原生与H5交互处理的时候，需要获取原生的设备等信息，这个时候需要用userAgent了：</p>
+<pre><code>///查看相对应的webView的userAgent
+UIWebView方式
+NSString *userAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@&quot;navigator.userAgent&quot;];
+DebugLog(@&quot;userAgent :%@&quot;, userAgent);
+
+WKWebView方式
+[[WKWebView new] evaluateJavaScript:@&quot;navigator.userAgent&quot; completionHandler:^(id result, NSError *error) {
+DebugLog(@&quot;userAgent :%@&quot;, result);
+}];
+</code></pre><a id="more"></a>
+<pre><code>///为userAgent添加附属信息
+NSString *defaultUserAgent = [[NSString alloc] initWithFormat:@&quot;IND/0.9.3;%@ %@;Apple;%@;%@&quot;, [UIDevice currentDevice].systemName, [UIDevice currentDevice].systemVersion, [UIDevice platform], [[UIWebView new] stringByEvaluatingJavaScriptFromString:@&quot;navigator.userAgent&quot;]];
+NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:defaultUserAgent, @&quot;UserAgent&quot;, nil];
+[[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+</code></pre><h3 id="WKWebView拦截URL处理原生跳转"><a href="#WKWebView拦截URL处理原生跳转" class="headerlink" title="WKWebView拦截URL处理原生跳转"></a>WKWebView拦截URL处理原生跳转</h3><p>iOS8出来之后苹果粑粑提供了一套新的加载网页的控件WKWebView,按照官方的说法比UIWebView优化进步了多少就不提了，根据新的WKNavigationDelegate提供的代理，可以较为方便的进行交互跳转的处理</p>
+<pre><code>- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+// 获取完整url并进行UTF-8转码
+NSString *requestURL = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
+//根据约定好的自定义链接内容进行判断
+if ([requestURL hasPrefix:@&quot;app://&quot;]) {
+    // 拦截点击链接
+    [self clickToNativeAction:requestURL];
+
+    //拦截，取消跳转
+decisionHandler(WKNavigationActionPolicyCancel);
+} else {
+    // 允许跳转
+decisionHandler(WKNavigationActionPolicyAllow);
+}
+}
+
+- (void)clickToNativeAction:(NSString *)url {
+    // 判断跳转
+    NSString *urlStr = @&quot;&quot;;
+    if ([url hasPrefix:@&quot;app://video&quot;]) {
+        // 某个视频被点击到了 手动处理跳转的交互
+    } else if ([URL hasPrefix:@&quot;app://audio&quot;]) {
+        // 某个音轨点击到了 处理跳转交互
+       }
+ }    
+</code></pre><p>原生和H5的交互处理越来越火热，一些东西还是需要多了解了解比较合适，懂多一点总是好的。</p>
+<h3 id="WKWebView遇到-blank"><a href="#WKWebView遇到-blank" class="headerlink" title="WKWebView遇到_blank"></a>WKWebView遇到_blank</h3><p>_blank标签，是在浏览器上面新开一个或者页面打开当前的链接，而不是在原来的网页上面堆栈打开，而在WKWebView上面则无法操作，系统自动拦截处理掉了。因此处理的方式是需要在WKWebView的代理中处理</p>
+<pre><code>- (WKWebView *)webView:(WKWebView *)webView 
+createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration 
+forNavigationAction:(WKNavigationAction *)navigationAction 
+windowFeatures:(WKWindowFeatures *)windowFeatures {    
+       WKFrameInfo *frameInfo = navigationAction.targetFrame;    
+    if (![frameInfo isMainFrame]) {    
+        [webView loadRequest:navigationAction.request];
+        }    
+    return nil;
+}
+</code></pre><p>上面这种方式是在原有的基础上面强制让webview加载该链接，这也只能说是H5适配移动端的程度不好导致的。并且也是较好的不注入代码的方式进行的处理。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>觉得有用请赏杯咖啡<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/images/aliPay_huang.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/images/wechat_huang.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,13 +278,13 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">WKWebView</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -204,17 +297,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://xiao-huang.github.io/2018/10/06/2018-10-06-iOS不常见知识点整合/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/03/08/2018-03-08-iOS循环网络请求/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS循环网络请求的做法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2018-10-06-iOS不常见知识点整合" data-title="WebView部分不常见的知识整理" data-url="https://xiao-huang.github.io/2018/10/06/2018-10-06-iOS不常见知识点整合/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
+
 
 
           </div>
@@ -237,9 +417,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
@@ -303,6 +483,10 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">UISearchDisplayController</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">GitHub</a>
               </li>
              
@@ -315,23 +499,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">UISearchDisplayController</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">NSData</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NSString</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">UITextField</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">输入限制</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -411,18 +583,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">height</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">textView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tableView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">OpenGL ES</a>
               </li>
              
@@ -432,6 +592,18 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">NSThead</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">height</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">textView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tableView</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -451,7 +623,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color5">WKWebView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">UITextField</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">输入限制</a>
               </li>
             
             <div class="clearfix"></div>

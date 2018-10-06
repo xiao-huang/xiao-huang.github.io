@@ -148,6 +148,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2018-10-06-iOS不常见知识点整合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/06/2018-10-06-iOS不常见知识点整合/">WebView部分不常见的知识整理</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/06/2018-10-06-iOS不常见知识点整合/" class="archive-article-date">
+  	<time datetime="2018-10-06T06:38:11.576Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="ios上webView获取UserAgent"><a href="#ios上webView获取UserAgent" class="headerlink" title="ios上webView获取UserAgent"></a>ios上webView获取UserAgent</h3><p>在某种情况下，原生与H5交互处理的时候，需要获取原生的设备等信息，这个时候需要用userAgent了：</p>
+<pre><code>///查看相对应的webView的userAgent
+UIWebView方式
+NSString *userAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@&quot;navigator.userAgent&quot;];
+DebugLog(@&quot;userAgent :%@&quot;, userAgent);
+
+WKWebView方式
+[[WKWebView new] evaluateJavaScript:@&quot;navigator.userAgent&quot; completionHandler:^(id result, NSError *error) {
+DebugLog(@&quot;userAgent :%@&quot;, result);
+}];
+</code></pre>
+        
+          <a class="article-more-a" href="/2018/10/06/2018-10-06-iOS不常见知识点整合/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">WKWebView</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术集/" class="article-tag-list-link color4">技术集</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/06/2018-10-06-iOS不常见知识点整合/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-2018-03-08-iOS循环网络请求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -392,95 +481,6 @@
 
 
   
-    <article id="post-2018-10-06-iOS中webView的一些知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/04/2018-10-06-iOS中webView的一些知识/">关于webView的一些知识</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/04/2018-10-06-iOS中webView的一些知识/" class="archive-article-date">
-  	<time datetime="2017-10-04T10:18:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="ios上webView获取UserAgent"><a href="#ios上webView获取UserAgent" class="headerlink" title="ios上webView获取UserAgent"></a>ios上webView获取UserAgent</h3><p>在某种情况下，原生与H5交互处理的时候，需要获取原生的设备等信息，这个时候需要用userAgent了：</p>
-<pre><code>///查看相对应的webView的userAgent
-UIWebView方式
-NSString *userAgent = [[UIWebView new] stringByEvaluatingJavaScriptFromString:@&quot;navigator.userAgent&quot;];
-DebugLog(@&quot;userAgent :%@&quot;, userAgent);
-
-WKWebView方式
-[[WKWebView new] evaluateJavaScript:@&quot;navigator.userAgent&quot; completionHandler:^(id result, NSError *error) {
-DebugLog(@&quot;userAgent :%@&quot;, result);
-}];
-</code></pre>
-        
-          <a class="article-more-a" href="/2017/10/04/2018-10-06-iOS中webView的一些知识/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术集/" class="article-tag-list-link color4">技术集</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/04/2018-10-06-iOS中webView的一些知识/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
     <article id="post-2017-09-01-iOS内购" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -651,6 +651,10 @@ DebugLog(@&quot;userAgent :%@&quot;, result);
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">UISearchDisplayController</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">GitHub</a>
               </li>
              
@@ -663,23 +667,11 @@ DebugLog(@&quot;userAgent :%@&quot;, result);
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">UISearchDisplayController</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">NSData</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NSString</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">UITextField</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">输入限制</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -759,18 +751,6 @@ DebugLog(@&quot;userAgent :%@&quot;, result);
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">height</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">textView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tableView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">OpenGL ES</a>
               </li>
              
@@ -780,6 +760,18 @@ DebugLog(@&quot;userAgent :%@&quot;, result);
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">NSThead</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">height</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">textView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tableView</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -799,7 +791,15 @@ DebugLog(@&quot;userAgent :%@&quot;, result);
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color5">WKWebView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">UITextField</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">输入限制</a>
               </li>
             
             <div class="clearfix"></div>
